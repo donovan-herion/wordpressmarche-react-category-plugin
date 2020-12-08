@@ -9,10 +9,16 @@ function Category(props) {
         `${props.siteSlug}/wp-json/wp/v2/categories?_fields=name,id&parent=${props.mainCategoryId}&per_page=100`
       )
       .then((res) => {
-        props.setCategories([
-          { name: "Tout", id: 0, active: true },
-          ...res.data,
-        ]);
+        if (res.data.length == 0) {
+          props.setCategories([
+            { name: "Pas de sous categories", id: 0, active: true },
+          ]);
+        } else {
+          props.setCategories([
+            { name: "Tout", id: 0, active: true },
+            ...res.data,
+          ]);
+        }
       })
       .catch((err) => console.log(err.message));
   };

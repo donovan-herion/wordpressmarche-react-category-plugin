@@ -5,8 +5,8 @@ import Results from "./Results";
 const { useState, useEffect } = wp.element;
 
 function App() {
-  const [siteSlug, setSiteSlug] = useState(""); //pour le debut de la requete (HTML)
-  const [mainCategoryId, setMainCategoryId] = useState(0); //pour afiner la requete par rapport a la categorie choisie (HTML)
+  const [siteSlug, setSiteSlug] = useState(""); //starting url request (HTML)
+  const [mainCategoryId, setMainCategoryId] = useState(0); //narrow down request (HTML)
   const [mainCategoryName, setMainCategoryName] = useState(""); //titre category.php (HTML) --needs to be fixed
 
   useEffect(() => {
@@ -35,7 +35,11 @@ function App() {
   return (
     <>
       <div className="bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
-        <Top siteSlug={siteSlug} mainCategoryName={mainCategoryName} />
+        <Top
+          siteSlug={siteSlug}
+          mainCategoryId={mainCategoryId}
+          mainCategoryName={mainCategoryName}
+        />
 
         <Category
           siteSlug={siteSlug}
@@ -48,6 +52,7 @@ function App() {
 
         <Results
           siteSlug={siteSlug}
+          mainCategoryId={mainCategoryId}
           categoriesIds={categoriesIds}
           posts={posts}
           setPosts={setPosts}
