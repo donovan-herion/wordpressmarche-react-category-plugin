@@ -1,0 +1,19 @@
+{
+  "name": "react-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^12.5.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.0"
+  }
+}
