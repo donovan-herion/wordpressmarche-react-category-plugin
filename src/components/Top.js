@@ -4,7 +4,6 @@ const { useState, useEffect } = wp.element;
 
 function Top(props) {
   const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
 
   const getTitle = () => {
     axios
@@ -26,7 +25,7 @@ function Top(props) {
     axios
       .get(`${props.siteSlug}/wp-json/wp/v2/categories/${props.mainCategoryId}`)
       .then((res) => {
-        setSubTitle(res.data.name);
+        props.setSubTitle(res.data.name);
       })
       .catch((err) => console.log(err.message));
   };
@@ -43,7 +42,7 @@ function Top(props) {
       </h2>
 
       <span className="color-cat-cit ff-semibold pt-12px d-block fs-short-2">
-        {subTitle}
+        {props.subTitle}
       </span>
     </>
   );

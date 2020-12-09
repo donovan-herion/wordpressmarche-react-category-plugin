@@ -14,8 +14,10 @@ function Category(props) {
             { name: "Pas de sous categories", id: 0, active: true },
           ]);
         } else {
+          console.log(props.subTitle);
           props.setCategories([
             { name: "Tout", id: 0, active: true },
+            { name: props.subTitle, id: props.mainCategoryId, active: false },
             ...res.data,
           ]);
         }
@@ -27,7 +29,7 @@ function Category(props) {
     if (props.mainCategoryId !== 0) {
       getCategories();
     }
-  }, [props.siteSlug, props.mainCategoryId]);
+  }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
 
   const groupCategoriesIds = () => {
     let list = [];
@@ -62,6 +64,11 @@ function Category(props) {
     );
   }
 
+  console.log(props.categories);
+
+  // if (props.categories.length == 1) {
+  //   return null;
+  // } else {
   return (
     <>
       <div className="overflow-hidden w-100 pt-48px col-6 px-0">
@@ -80,7 +87,7 @@ function Category(props) {
                   }}
                   href="#"
                 >
-                  {object.name} {object.id}
+                  {object.name} | {object.id}
                 </a>
               </li>
             );
@@ -90,5 +97,6 @@ function Category(props) {
     </>
   );
 }
+// }
 
 export default Category;

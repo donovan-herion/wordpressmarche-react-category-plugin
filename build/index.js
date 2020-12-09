@@ -2347,14 +2347,20 @@ var _wp$element = wp.element,
 function App() {
   var _useState = useState(""),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
-      siteSlug = _useState2[0],
-      setSiteSlug = _useState2[1]; //starting url request (HTML)
+      subTitle = _useState2[0],
+      setSubTitle = _useState2[1]; //put back in top if needed
 
 
-  var _useState3 = useState(0),
+  var _useState3 = useState(""),
       _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState3, 2),
-      mainCategoryId = _useState4[0],
-      setMainCategoryId = _useState4[1]; //narrow down request (HTML)
+      siteSlug = _useState4[0],
+      setSiteSlug = _useState4[1]; //starting url request (HTML)
+
+
+  var _useState5 = useState(0),
+      _useState6 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState5, 2),
+      mainCategoryId = _useState6[0],
+      setMainCategoryId = _useState6[1]; //narrow down request (HTML)
 
 
   useEffect(function () {
@@ -2366,43 +2372,48 @@ function App() {
     setMainCategoryId(document.querySelector("#app").getAttribute("data-main-category-id"));
   }, []);
 
-  var _useState5 = useState([]),
-      _useState6 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState5, 2),
-      categories = _useState6[0],
-      setCategories = _useState6[1];
-
   var _useState7 = useState([]),
       _useState8 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState7, 2),
-      categoriesIds = _useState8[0],
-      setCategoriesIds = _useState8[1];
+      categories = _useState8[0],
+      setCategories = _useState8[1];
 
-  var _useState9 = useState(0),
+  var _useState9 = useState([]),
       _useState10 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState9, 2),
-      selectedCategory = _useState10[0],
-      setSelectedCategory = _useState10[1];
+      categoriesIds = _useState10[0],
+      setCategoriesIds = _useState10[1];
 
-  var _useState11 = useState([]),
+  var _useState11 = useState(0),
       _useState12 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState11, 2),
-      posts = _useState12[0],
-      setPosts = _useState12[1];
+      selectedCategory = _useState12[0],
+      setSelectedCategory = _useState12[1];
 
   var _useState13 = useState([]),
       _useState14 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState13, 2),
-      filteredPosts = _useState14[0],
-      setFilteredPosts = _useState14[1];
+      posts = _useState14[0],
+      setPosts = _useState14[1];
+
+  var _useState15 = useState([]),
+      _useState16 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState15, 2),
+      filteredPosts = _useState16[0],
+      setFilteredPosts = _useState16[1];
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Top__WEBPACK_IMPORTED_MODULE_2__["default"], {
     siteSlug: siteSlug,
-    mainCategoryId: mainCategoryId
+    mainCategoryId: mainCategoryId,
+    setSubTitle: setSubTitle,
+    subTitle: subTitle //delete maybe
+
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Category__WEBPACK_IMPORTED_MODULE_3__["default"], {
     siteSlug: siteSlug,
     mainCategoryId: mainCategoryId,
     categories: categories,
     setCategories: setCategories,
     setCategoriesIds: setCategoriesIds,
-    setSelectedCategory: setSelectedCategory
+    setSelectedCategory: setSelectedCategory,
+    subTitle: subTitle //delete maybe
+
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Results__WEBPACK_IMPORTED_MODULE_4__["default"], {
     siteSlug: siteSlug,
     mainCategoryId: mainCategoryId,
@@ -2467,10 +2478,15 @@ function Category(props) {
           active: true
         }]);
       } else {
+        console.log(props.subTitle);
         props.setCategories([{
           name: "Tout",
           id: 0,
           active: true
+        }, {
+          name: props.subTitle,
+          id: props.mainCategoryId,
+          active: false
         }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(res.data)));
       }
     }).catch(function (err) {
@@ -2482,7 +2498,7 @@ function Category(props) {
     if (props.mainCategoryId !== 0) {
       getCategories();
     }
-  }, [props.siteSlug, props.mainCategoryId]);
+  }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
 
   var groupCategoriesIds = function groupCategoriesIds() {
     var list = [];
@@ -2523,6 +2539,10 @@ function Category(props) {
     });
   }
 
+  console.log(props.categories); // if (props.categories.length == 1) {
+  //   return null;
+  // } else {
+
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "overflow-hidden w-100 pt-48px col-6 px-0"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
@@ -2538,9 +2558,10 @@ function Category(props) {
         changeActive(e);
       },
       href: "#"
-    }, object.name, " ", object.id));
+    }, object.name, " | ", object.id));
   }))));
-}
+} // }
+
 
 /* harmony default export */ __webpack_exports__["default"] = (Category);
 
@@ -2644,11 +2665,6 @@ function Top(props) {
       title = _useState2[0],
       setTitle = _useState2[1];
 
-  var _useState3 = useState(""),
-      _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState3, 2),
-      subTitle = _useState4[0],
-      setSubTitle = _useState4[1];
-
   var getTitle = function getTitle() {
     _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "/wp-json")).then(function (res) {
       console.log(res.data);
@@ -2666,7 +2682,7 @@ function Top(props) {
 
   var getSubTitle = function getSubTitle() {
     _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "/wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
-      setSubTitle(res.data.name);
+      props.setSubTitle(res.data.name);
     }).catch(function (err) {
       return console.log(err.message);
     });
@@ -2681,7 +2697,7 @@ function Top(props) {
     className: "text-ls-md-left pt-ls-md-8px text-md-left pt-md-8px"
   }, title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
     className: "color-cat-cit ff-semibold pt-12px d-block fs-short-2"
-  }, subTitle));
+  }, props.subTitle));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Top);
