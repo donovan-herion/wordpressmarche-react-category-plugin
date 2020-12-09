@@ -17,7 +17,11 @@ function Category(props) {
           console.log(props.subTitle);
           props.setCategories([
             { name: "Tout", id: 0, active: true },
-            { name: props.subTitle, id: props.mainCategoryId, active: false },
+            {
+              name: "Information générale",
+              id: props.mainCategoryId,
+              active: false,
+            },
             ...res.data,
           ]);
         }

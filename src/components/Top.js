@@ -3,7 +3,8 @@ import axios from "./Axios";
 const { useState, useEffect } = wp.element;
 
 function Top(props) {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(""); //used in Top component but also in Category
+  const [subTitle, setSubTitle] = useState(""); //used in Top component but also in Category
 
   const getTitle = () => {
     axios
@@ -25,7 +26,7 @@ function Top(props) {
     axios
       .get(`${props.siteSlug}/wp-json/wp/v2/categories/${props.mainCategoryId}`)
       .then((res) => {
-        props.setSubTitle(res.data.name);
+        setSubTitle(res.data.name);
       })
       .catch((err) => console.log(err.message));
   };
@@ -42,7 +43,7 @@ function Top(props) {
       </h2>
 
       <span className="color-cat-cit ff-semibold pt-12px d-block fs-short-2">
-        {props.subTitle}
+        {subTitle}
       </span>
     </>
   );

@@ -5,8 +5,6 @@ import Results from "./Results";
 const { useState, useEffect } = wp.element;
 
 function App() {
-  const [subTitle, setSubTitle] = useState(""); //put back in top if needed
-
   const [siteSlug, setSiteSlug] = useState(""); //starting url request (HTML)
   const [mainCategoryId, setMainCategoryId] = useState(0); //narrow down request (HTML)
 
@@ -33,12 +31,7 @@ function App() {
   return (
     <>
       <div className="bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
-        <Top
-          siteSlug={siteSlug}
-          mainCategoryId={mainCategoryId}
-          setSubTitle={setSubTitle}
-          subTitle={subTitle} //delete maybe
-        />
+        <Top siteSlug={siteSlug} mainCategoryId={mainCategoryId} />
 
         <Category
           siteSlug={siteSlug}
@@ -47,7 +40,6 @@ function App() {
           setCategories={setCategories}
           setCategoriesIds={setCategoriesIds}
           setSelectedCategory={setSelectedCategory}
-          subTitle={subTitle} //delete maybe
         />
 
         <Results
