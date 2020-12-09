@@ -7,7 +7,6 @@ const { useState, useEffect } = wp.element;
 function App() {
   const [siteSlug, setSiteSlug] = useState(""); //starting url request (HTML)
   const [mainCategoryId, setMainCategoryId] = useState(0); //narrow down request (HTML)
-  const [mainCategoryName, setMainCategoryName] = useState(""); //titre category.php (HTML) --needs to be fixed
 
   useEffect(() => {
     const adaptSiteSlug = (temp_siteSlug) => {
@@ -15,14 +14,11 @@ function App() {
     };
     setSiteSlug(
       adaptSiteSlug(
-        document.querySelector("#app").getAttribute("data-sub-site-slug")
+        document.querySelector("#app").getAttribute("data-site-slug")
       )
     );
     setMainCategoryId(
-      document.querySelector("#app").getAttribute("data-sub-category-id")
-    );
-    setMainCategoryName(
-      document.querySelector("#app").getAttribute("data-sub-category-name")
+      document.querySelector("#app").getAttribute("data-main-category-id")
     );
   }, []);
 
@@ -35,11 +31,7 @@ function App() {
   return (
     <>
       <div className="bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
-        <Top
-          siteSlug={siteSlug}
-          mainCategoryId={mainCategoryId}
-          mainCategoryName={mainCategoryName}
-        />
+        <Top siteSlug={siteSlug} mainCategoryId={mainCategoryId} />
 
         <Category
           siteSlug={siteSlug}

@@ -24,11 +24,9 @@ function Top(props) {
 
   const getSubTitle = () => {
     axios
-      .get(
-        `${props.siteSlug}/wp-json/wp/v2/categories?id=${props.mainCategoryId}` // id param not working
-      )
+      .get(`${props.siteSlug}/wp-json/wp/v2/categories/${props.mainCategoryId}`)
       .then((res) => {
-        // setSubTitle(res.data.name);
+        setSubTitle(res.data.name);
       })
       .catch((err) => console.log(err.message));
   };

@@ -6,7 +6,11 @@ function Results(props) {
   const getPostsData = () => {
     axios
       .get(
-        `${props.siteSlug}/wp-json/wp/v2/posts?&categories=${props.mainCategoryId},${props.categoriesIds}&per_page=100`
+        `${props.siteSlug}/wp-json/wp/v2/posts?&categories=${
+          props.mainCategoryId
+        }${props.categoriesIds !== 0 ? "," : ""}${
+          props.categoriesIds
+        }&per_page=100`
       )
       .then((res) => {
         props.setPosts(res.data);
@@ -44,15 +48,15 @@ function Results(props) {
                 <h3
                   className="fs-short-2 ff-semibold text-dark-primary text-hover-primary transition-all ellipsis"
                   dangerouslySetInnerHTML={{
-                    __html: object.title.rendered,
+                    __html: `${object.categories.join(" | ")} ${
+                      object.title.rendered
+                    }`,
                   }}
                 />
                 <span
                   className="d-block pt-8px fs-short-3 ellipsis text-dark-primary"
                   dangerouslySetInnerHTML={{
-                    __html: `${object.categories.join(" | ")} ${
-                      object.excerpt.rendered
-                    }`,
+                    __html: `${object.excerpt.rendered}`,
                   }}
                 />
               </a>
