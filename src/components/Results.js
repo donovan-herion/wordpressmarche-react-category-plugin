@@ -6,7 +6,7 @@ function Results(props) {
   const getPostsData = () => {
     axios
       .get(
-        `${props.siteSlug}/wp-json/wp/v2/posts?&categories=${
+        `${props.siteSlug}wp-json/wp/v2/posts?&categories=${
           props.mainCategoryId
         }${props.categoriesIds !== 0 ? "," : ""}${
           props.categoriesIds

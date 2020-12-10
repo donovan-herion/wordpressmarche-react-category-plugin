@@ -10,11 +10,11 @@ function App() {
 
   useEffect(() => {
     const adaptSiteSlug = (temp_siteSlug) => {
-      return temp_siteSlug == "citoyen" ? "" : temp_siteSlug;
+      return temp_siteSlug == "/citoyen/" ? "" : temp_siteSlug;
     };
     setSiteSlug(
       adaptSiteSlug(
-        document.querySelector("#app").getAttribute("data-site-slug")
+        document.querySelector("#app").getAttribute("data-site-url")
       )
     );
     setMainCategoryId(

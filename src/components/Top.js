@@ -8,7 +8,7 @@ function Top(props) {
 
   const getTitle = () => {
     axios
-      .get(`${props.siteSlug}/wp-json`)
+      .get(`${props.siteSlug}wp-json`)
       .then((res) => {
         console.log(res.data);
         setTitle(res.data.name);
@@ -24,7 +24,7 @@ function Top(props) {
 
   const getSubTitle = () => {
     axios
-      .get(`${props.siteSlug}/wp-json/wp/v2/categories/${props.mainCategoryId}`)
+      .get(`${props.siteSlug}wp-json/wp/v2/categories/${props.mainCategoryId}`)
       .then((res) => {
         setSubTitle(res.data.name);
       })

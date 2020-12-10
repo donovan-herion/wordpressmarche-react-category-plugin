@@ -6,7 +6,7 @@ function Category(props) {
   const getCategories = () => {
     axios
       .get(
-        `${props.siteSlug}/wp-json/wp/v2/categories?_fields=name,id&parent=${props.mainCategoryId}&per_page=100`
+        `${props.siteSlug}wp-json/wp/v2/categories?_fields=name,id&parent=${props.mainCategoryId}&per_page=100`
       )
       .then((res) => {
         if (res.data.length == 0) {
@@ -28,7 +28,7 @@ function Category(props) {
 
   const checkMainCategoryContent = (temp_res) => {
     axios
-      .get(`${props.siteSlug}/wp-json/wp/v2/categories/${props.mainCategoryId}`)
+      .get(`${props.siteSlug}wp-json/wp/v2/categories/${props.mainCategoryId}`)
       .then((res) => {
         if (res.data.count !== 0) {
           props.setCategories([

@@ -2359,10 +2359,10 @@ function App() {
 
   useEffect(function () {
     var adaptSiteSlug = function adaptSiteSlug(temp_siteSlug) {
-      return temp_siteSlug == "citoyen" ? "" : temp_siteSlug;
+      return temp_siteSlug == "/citoyen/" ? "" : temp_siteSlug;
     };
 
-    setSiteSlug(adaptSiteSlug(document.querySelector("#app").getAttribute("data-site-slug")));
+    setSiteSlug(adaptSiteSlug(document.querySelector("#app").getAttribute("data-site-url")));
     setMainCategoryId(document.querySelector("#app").getAttribute("data-main-category-id"));
   }, []);
 
@@ -2459,7 +2459,7 @@ var useEffect = wp.element.useEffect;
 
 function Category(props) {
   var getCategories = function getCategories() {
-    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "/wp-json/wp/v2/categories?_fields=name,id&parent=").concat(props.mainCategoryId, "&per_page=100")).then(function (res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/categories?_fields=name,id&parent=").concat(props.mainCategoryId, "&per_page=100")).then(function (res) {
       if (res.data.length == 0) {
         props.setCategories([{
           name: "Pas de sous categories",
@@ -2481,7 +2481,7 @@ function Category(props) {
   }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
 
   var checkMainCategoryContent = function checkMainCategoryContent(temp_res) {
-    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "/wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
       if (res.data.count !== 0) {
         props.setCategories([{
           name: "Tout",
@@ -2589,7 +2589,7 @@ var useEffect = wp.element.useEffect;
 
 function Results(props) {
   var getPostsData = function getPostsData() {
-    _Axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("".concat(props.siteSlug, "/wp-json/wp/v2/posts?&categories=").concat(props.mainCategoryId).concat(props.categoriesIds !== 0 ? "," : "").concat(props.categoriesIds, "&per_page=100")).then(function (res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/posts?&categories=").concat(props.mainCategoryId).concat(props.categoriesIds !== 0 ? "," : "").concat(props.categoriesIds, "&per_page=100")).then(function (res) {
       props.setPosts(res.data);
     }).catch(function (err) {
       return console.log(err.message);
@@ -2677,7 +2677,7 @@ function Top(props) {
 
 
   var getTitle = function getTitle() {
-    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "/wp-json")).then(function (res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json")).then(function (res) {
       console.log(res.data);
       setTitle(res.data.name);
     }).catch(function (err) {
@@ -2692,7 +2692,7 @@ function Top(props) {
   }, [props.siteSlug, props.mainCategoryId]);
 
   var getSubTitle = function getSubTitle() {
-    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "/wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
       setSubTitle(res.data.name);
     }).catch(function (err) {
       return console.log(err.message);
