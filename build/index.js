@@ -2467,16 +2467,7 @@ function Category(props) {
           active: true
         }]);
       } else {
-        console.log(props.subTitle);
-        props.setCategories([{
-          name: "Tout",
-          id: 0,
-          active: true
-        }, {
-          name: "Information générale",
-          id: props.mainCategoryId,
-          active: false
-        }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(res.data)));
+        checkMainCategoryContent(res);
       }
     }).catch(function (err) {
       return console.log(err.message);
@@ -2488,6 +2479,30 @@ function Category(props) {
       getCategories();
     }
   }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
+
+  var checkMainCategoryContent = function checkMainCategoryContent(temp_res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "/wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
+      if (res.data.count !== 0) {
+        props.setCategories([{
+          name: "Tout",
+          id: 0,
+          active: true
+        }, {
+          name: "Information générale",
+          id: props.mainCategoryId,
+          active: false
+        }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(temp_res.data)));
+      } else {
+        props.setCategories([{
+          name: "Tout",
+          id: 0,
+          active: true
+        }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(temp_res.data)));
+      }
+    }).catch(function (err) {
+      return console.log(err.message);
+    });
+  };
 
   var groupCategoriesIds = function groupCategoriesIds() {
     var list = [];

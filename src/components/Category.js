@@ -14,16 +14,7 @@ function Category(props) {
             { name: "Pas de sous categories", id: 0, active: true },
           ]);
         } else {
-          console.log(props.subTitle);
-          props.setCategories([
-            { name: "Tout", id: 0, active: true },
-            {
-              name: "Information générale",
-              id: props.mainCategoryId,
-              active: false,
-            },
-            ...res.data,
-          ]);
+          checkMainCategoryContent(res);
         }
       })
       .catch((err) => console.log(err.message));
@@ -34,6 +25,30 @@ function Category(props) {
       getCategories();
     }
   }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
+
+  const checkMainCategoryContent = (temp_res) => {
+    axios
+      .get(`${props.siteSlug}/wp-json/wp/v2/categories/${props.mainCategoryId}`)
+      .then((res) => {
+        if (res.data.count !== 0) {
+          props.setCategories([
+            { name: "Tout", id: 0, active: true },
+            {
+              name: "Information générale",
+              id: props.mainCategoryId,
+              active: false,
+            },
+            ...temp_res.data,
+          ]);
+        } else {
+          props.setCategories([
+            { name: "Tout", id: 0, active: true },
+            ...temp_res.data,
+          ]);
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
 
   const groupCategoriesIds = () => {
     let list = [];
