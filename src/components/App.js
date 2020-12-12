@@ -1,6 +1,6 @@
 import Top from "./Top";
 import Category from "./Category";
-import Results from "./Results";
+import Results from "./ResultsNew";
 
 const { useState, useEffect } = wp.element;
 

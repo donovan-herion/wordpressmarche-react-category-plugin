@@ -2,19 +2,13 @@ import axios from "./Axios";
 
 const { useEffect } = wp.element;
 
-function Results(props) {
+function ResultsNew(props) {
   const getPostsData = () => {
     axios
-      .get(
-        // todo mettre ton url "fiches"
-        `${props.siteSlug}wp-json/wp/v2/posts?&categories=${
-          props.mainCategoryId
-        }${props.categoriesIds !== 0 ? "," : ""}${
-          props.categoriesIds
-        }&per_page=100`
-      )
+      .get(`${props.siteSlug}wp-json/ca/v1/all/${props.mainCategoryId}`)
       .then((res) => {
         props.setPosts(res.data);
+        console.log(res.data);
       })
       .catch((err) => console.log(err.message));
   };
@@ -30,7 +24,9 @@ function Results(props) {
       props.setFilteredPosts(props.posts);
     } else {
       let filteredPosts = props.posts.filter((object) => {
-        return object.categories.find((elem) => elem == props.selectedCategory);
+        return object.react_category_filter.find(
+          (elem) => elem == props.selectedCategory
+        );
       });
       props.setFilteredPosts(filteredPosts);
     }
@@ -49,15 +45,15 @@ function Results(props) {
                 <h3
                   className="fs-short-2 ff-semibold text-dark-primary text-hover-primary transition-all ellipsis"
                   dangerouslySetInnerHTML={{
-                    __html: `${object.categories.join(" | ")} ${
-                      object.title.rendered
+                    __html: `${object.react_category_filter.join(" | ")} ${
+                      object.post_title
                     }`,
                   }}
                 />
                 <span
                   className="d-block pt-8px fs-short-3 ellipsis text-dark-primary"
                   dangerouslySetInnerHTML={{
-                    __html: `${object.excerpt.rendered}`,
+                    __html: `excerpt here`,
                   }}
                 />
               </a>
@@ -69,4 +65,4 @@ function Results(props) {
   );
 }
 
-export default Results;
+export default ResultsNew;

@@ -2334,7 +2334,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Top__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Top */ "./src/components/Top.js");
 /* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Category */ "./src/components/Category.js");
-/* harmony import */ var _Results__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Results */ "./src/components/Results.js");
+/* harmony import */ var _ResultsNew__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ResultsNew */ "./src/components/ResultsNew.js");
 
 
 
@@ -2403,7 +2403,7 @@ function App() {
     setCategories: setCategories,
     setCategoriesIds: setCategoriesIds,
     setSelectedCategory: setSelectedCategory
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Results__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_ResultsNew__WEBPACK_IMPORTED_MODULE_4__["default"], {
     siteSlug: siteSlug,
     mainCategoryId: mainCategoryId,
     categoriesIds: categoriesIds,
@@ -2543,38 +2543,39 @@ function Category(props) {
     });
   }
 
-  console.log(props.categories); // if (props.categories.length == 1) {
-  //   return null;
-  // } else {
+  console.log(props.categories);
 
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "overflow-hidden w-100 pt-48px col-6 px-0"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
-    className: "object-tags"
-  }, props.categories.map(function (object, index) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("li", {
-      key: index,
-      className: "".concat(object.active ? "active" : "", " pr-24px")
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
-      "data-category-id": object.id,
-      onClick: function onClick(e) {
-        changeSelectedCategory(e);
-        changeActive(e);
-      },
-      href: "#"
-    }, object.name, " | ", object.id));
-  }))));
-} // }
-
+  if (props.categories.length == 1) {
+    return null;
+  } else {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "overflow-hidden w-100 pt-48px col-6 px-0"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
+      className: "object-tags"
+    }, props.categories.map(function (object, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("li", {
+        key: index,
+        className: "".concat(object.active ? "active" : "", " pr-24px")
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+        "data-category-id": object.id,
+        onClick: function onClick(e) {
+          changeSelectedCategory(e);
+          changeActive(e);
+        },
+        href: "#"
+      }, object.name, " | ", object.id));
+    }))));
+  }
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (Category);
 
 /***/ }),
 
-/***/ "./src/components/Results.js":
-/*!***********************************!*\
-  !*** ./src/components/Results.js ***!
-  \***********************************/
+/***/ "./src/components/ResultsNew.js":
+/*!**************************************!*\
+  !*** ./src/components/ResultsNew.js ***!
+  \**************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2587,10 +2588,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var useEffect = wp.element.useEffect;
 
-function Results(props) {
+function ResultsNew(props) {
   var getPostsData = function getPostsData() {
-    _Axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/posts?&categories=").concat(props.mainCategoryId).concat(props.categoriesIds !== 0 ? "," : "").concat(props.categoriesIds, "&per_page=100")).then(function (res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("".concat(props.siteSlug, "wp-json/ca/v1/all/").concat(props.mainCategoryId)).then(function (res) {
       props.setPosts(res.data);
+      console.log(res.data);
     }).catch(function (err) {
       return console.log(err.message);
     });
@@ -2606,7 +2608,7 @@ function Results(props) {
       props.setFilteredPosts(props.posts);
     } else {
       var filteredPosts = props.posts.filter(function (object) {
-        return object.categories.find(function (elem) {
+        return object.react_category_filter.find(function (elem) {
           return elem == props.selectedCategory;
         });
       });
@@ -2627,18 +2629,18 @@ function Results(props) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", {
       className: "fs-short-2 ff-semibold text-dark-primary text-hover-primary transition-all ellipsis",
       dangerouslySetInnerHTML: {
-        __html: "".concat(object.categories.join(" | "), " ").concat(object.title.rendered)
+        __html: "".concat(object.react_category_filter.join(" | "), " ").concat(object.post_title)
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
       className: "d-block pt-8px fs-short-3 ellipsis text-dark-primary",
       dangerouslySetInnerHTML: {
-        __html: "".concat(object.excerpt.rendered)
+        __html: "excerpt here"
       }
     })));
   })));
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Results);
+/* harmony default export */ __webpack_exports__["default"] = (ResultsNew);
 
 /***/ }),
 

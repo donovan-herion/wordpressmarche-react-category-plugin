@@ -85,37 +85,37 @@ function Category(props) {
 
   console.log(props.categories);
 
-  // if (props.categories.length == 1) {
-  //   return null;
-  // } else {
-  return (
-    <>
-      <div className="overflow-hidden w-100 pt-48px col-6 px-0">
-        <ul className="object-tags">
-          {props.categories.map((object, index) => {
-            return (
-              <li
-                key={index}
-                className={`${object.active ? "active" : ""} pr-24px`}
-              >
-                <a
-                  data-category-id={object.id}
-                  onClick={(e) => {
-                    changeSelectedCategory(e);
-                    changeActive(e);
-                  }}
-                  href="#"
+  if (props.categories.length == 1) {
+    return null;
+  } else {
+    return (
+      <>
+        <div className="overflow-hidden w-100 pt-48px col-6 px-0">
+          <ul className="object-tags">
+            {props.categories.map((object, index) => {
+              return (
+                <li
+                  key={index}
+                  className={`${object.active ? "active" : ""} pr-24px`}
                 >
-                  {object.name} | {object.id}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </>
-  );
+                  <a
+                    data-category-id={object.id}
+                    onClick={(e) => {
+                      changeSelectedCategory(e);
+                      changeActive(e);
+                    }}
+                    href="#"
+                  >
+                    {object.name} | {object.id}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </>
+    );
+  }
 }
-// }
 
 export default Category;
