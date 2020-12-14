@@ -29,7 +29,12 @@ function Category(props) {
     if (props.mainCategoryId !== 0) {
       getCategories();
     }
-  }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
+  }, [
+    props.siteSlug,
+    props.mainCategoryId,
+    props.subTitle,
+    props.filteredCategoryDescription,
+  ]);
 
   const checkMainCategoryContent = (temp_res) => {
     axios
@@ -41,6 +46,7 @@ function Category(props) {
             {
               name: "Information générale",
               id: props.mainCategoryId,
+              description: res.data.description,
               active: false,
             },
             ...temp_res.data,
@@ -116,13 +122,6 @@ function Category(props) {
             })}
           </ul>
         </div>
-        {/* <p>
-          {props.categories.map((object, index) => {
-            if (object.description !== "") {
-              return <p key={index}>{`${object.description} ${object.id}`}</p>;
-            }
-          })}
-        </p> */}
       </>
     );
   }

@@ -45,6 +45,7 @@ function App() {
           setCategories={setCategories}
           setCategoriesIds={setCategoriesIds}
           setSelectedCategory={setSelectedCategory}
+          filteredCategoryDescription={filteredCategoryDescription}
         />
 
         <Description

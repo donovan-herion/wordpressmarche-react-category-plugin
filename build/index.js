@@ -2409,7 +2409,8 @@ function App() {
     categories: categories,
     setCategories: setCategories,
     setCategoriesIds: setCategoriesIds,
-    setSelectedCategory: setSelectedCategory
+    setSelectedCategory: setSelectedCategory,
+    filteredCategoryDescription: filteredCategoryDescription
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Description__WEBPACK_IMPORTED_MODULE_4__["default"], {
     categories: categories,
     selectedCategory: selectedCategory,
@@ -2491,7 +2492,7 @@ function Category(props) {
     if (props.mainCategoryId !== 0) {
       getCategories();
     }
-  }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
+  }, [props.siteSlug, props.mainCategoryId, props.subTitle, props.filteredCategoryDescription]);
 
   var checkMainCategoryContent = function checkMainCategoryContent(temp_res) {
     _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
@@ -2504,6 +2505,7 @@ function Category(props) {
         }, {
           name: "Information générale",
           id: props.mainCategoryId,
+          description: res.data.description,
           active: false
         }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(temp_res.data)));
       } else {
@@ -2609,6 +2611,8 @@ function Description(props) {
         return object.id == props.selectedCategory;
       });
       props.setFilteredCategoryDescription(filteredCategoryDescription[0].description);
+    } else {
+      props.setFilteredCategoryDescription("");
     }
   }, [props.categories, props.selectedCategory]);
 
@@ -2645,6 +2649,7 @@ var useEffect = wp.element.useEffect;
 
 function ResultsNew(props) {
   var getPostsData = function getPostsData() {
+    console.log("https://new.marche.be".concat(props.siteSlug, "wp-json/ca/v1/all/").concat(props.mainCategoryId));
     _Axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("".concat(props.siteSlug, "wp-json/ca/v1/all/").concat(props.mainCategoryId)).then(function (res) {
       props.setPosts(res.data);
     }).catch(function (err) {

@@ -4,6 +4,9 @@ const { useEffect } = wp.element;
 
 function ResultsNew(props) {
   const getPostsData = () => {
+    console.log(
+      `https://new.marche.be${props.siteSlug}wp-json/ca/v1/all/${props.mainCategoryId}`
+    );
     axios
       .get(`${props.siteSlug}wp-json/ca/v1/all/${props.mainCategoryId}`)
       .then((res) => {

@@ -11,6 +11,8 @@ function Description(props) {
       props.setFilteredCategoryDescription(
         filteredCategoryDescription[0].description
       );
+    } else {
+      props.setFilteredCategoryDescription("");
     }
   }, [props.categories, props.selectedCategory]);
 
