@@ -19,3 +19,4 @@ function example_react_app()
 add_shortcode('example_react_app', 'example_react_app');
 
 remove_filter('the_excerpt', 'wpautop');
+changed value to check
