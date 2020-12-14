@@ -1,6 +1,6 @@
 <?php
 
-// Plugin Name: React Plugin
+// Plugin Name: React Category Plugin
 
 defined('ABSPATH') || die();
 
