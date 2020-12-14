@@ -8,7 +8,6 @@ function ResultsNew(props) {
       .get(`${props.siteSlug}wp-json/ca/v1/all/${props.mainCategoryId}`)
       .then((res) => {
         props.setPosts(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err.message));
   };

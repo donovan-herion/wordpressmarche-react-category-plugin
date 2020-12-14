@@ -6,12 +6,17 @@ function Category(props) {
   const getCategories = () => {
     axios
       .get(
-        `${props.siteSlug}wp-json/wp/v2/categories?_fields=name,id&parent=${props.mainCategoryId}&per_page=100`
+        `${props.siteSlug}wp-json/wp/v2/categories?_fields=name,id,description&parent=${props.mainCategoryId}&per_page=100`
       )
       .then((res) => {
         if (res.data.length == 0) {
           props.setCategories([
-            { name: "Pas de sous categories", id: 0, active: true },
+            {
+              name: "Pas de sous categories",
+              id: 0,
+              description: "",
+              active: true,
+            },
           ]);
         } else {
           checkMainCategoryContent(res);
@@ -32,7 +37,7 @@ function Category(props) {
       .then((res) => {
         if (res.data.count !== 0) {
           props.setCategories([
-            { name: "Tout", id: 0, active: true },
+            { name: "Tout", id: 0, description: "", active: true },
             {
               name: "Information générale",
               id: props.mainCategoryId,
@@ -42,7 +47,7 @@ function Category(props) {
           ]);
         } else {
           props.setCategories([
-            { name: "Tout", id: 0, active: true },
+            { name: "Tout", id: 0, description: "", active: true },
             ...temp_res.data,
           ]);
         }
@@ -83,8 +88,6 @@ function Category(props) {
     );
   }
 
-  console.log(props.categories);
-
   if (props.categories.length == 1) {
     return null;
   } else {
@@ -113,6 +116,13 @@ function Category(props) {
             })}
           </ul>
         </div>
+        {/* <p>
+          {props.categories.map((object, index) => {
+            if (object.description !== "") {
+              return <p key={index}>{`${object.description} ${object.id}`}</p>;
+            }
+          })}
+        </p> */}
       </>
     );
   }

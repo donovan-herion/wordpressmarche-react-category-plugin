@@ -2334,7 +2334,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Top__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Top */ "./src/components/Top.js");
 /* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Category */ "./src/components/Category.js");
-/* harmony import */ var _ResultsNew__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ResultsNew */ "./src/components/ResultsNew.js");
+/* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Description */ "./src/components/Description.js");
+/* harmony import */ var _ResultsNew__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ResultsNew */ "./src/components/ResultsNew.js");
+
 
 
 
@@ -2391,6 +2393,11 @@ function App() {
       filteredPosts = _useState14[0],
       setFilteredPosts = _useState14[1];
 
+  var _useState15 = useState(""),
+      _useState16 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState15, 2),
+      filteredCategoryDescription = _useState16[0],
+      setFilteredCategoryDescription = _useState16[1];
+
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Top__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -2403,7 +2410,12 @@ function App() {
     setCategories: setCategories,
     setCategoriesIds: setCategoriesIds,
     setSelectedCategory: setSelectedCategory
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_ResultsNew__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Description__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    categories: categories,
+    selectedCategory: selectedCategory,
+    filteredCategoryDescription: filteredCategoryDescription,
+    setFilteredCategoryDescription: setFilteredCategoryDescription
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_ResultsNew__WEBPACK_IMPORTED_MODULE_5__["default"], {
     siteSlug: siteSlug,
     mainCategoryId: mainCategoryId,
     categoriesIds: categoriesIds,
@@ -2459,11 +2471,12 @@ var useEffect = wp.element.useEffect;
 
 function Category(props) {
   var getCategories = function getCategories() {
-    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/categories?_fields=name,id&parent=").concat(props.mainCategoryId, "&per_page=100")).then(function (res) {
+    _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/categories?_fields=name,id,description&parent=").concat(props.mainCategoryId, "&per_page=100")).then(function (res) {
       if (res.data.length == 0) {
         props.setCategories([{
           name: "Pas de sous categories",
           id: 0,
+          description: "",
           active: true
         }]);
       } else {
@@ -2486,6 +2499,7 @@ function Category(props) {
         props.setCategories([{
           name: "Tout",
           id: 0,
+          description: "",
           active: true
         }, {
           name: "Information générale",
@@ -2496,6 +2510,7 @@ function Category(props) {
         props.setCategories([{
           name: "Tout",
           id: 0,
+          description: "",
           active: true
         }].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(temp_res.data)));
       }
@@ -2543,8 +2558,6 @@ function Category(props) {
     });
   }
 
-  console.log(props.categories);
-
   if (props.categories.length == 1) {
     return null;
   } else {
@@ -2572,6 +2585,48 @@ function Category(props) {
 
 /***/ }),
 
+/***/ "./src/components/Description.js":
+/*!***************************************!*\
+  !*** ./src/components/Description.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var useEffect = wp.element.useEffect;
+
+function Description(props) {
+  useEffect(function () {
+    if (props.selectedCategory !== 0) {
+      var filteredCategoryDescription = props.categories.filter(function (object) {
+        return object.id == props.selectedCategory;
+      });
+      props.setFilteredCategoryDescription(filteredCategoryDescription[0].description);
+    }
+  }, [props.categories, props.selectedCategory]);
+
+  if (props.filteredCategoryDescription !== "") {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
+      dangerouslySetInnerHTML: {
+        __html: props.filteredCategoryDescription
+      }
+    });
+  } else {
+    return null;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Description);
+
+/***/ }),
+
 /***/ "./src/components/ResultsNew.js":
 /*!**************************************!*\
   !*** ./src/components/ResultsNew.js ***!
@@ -2592,7 +2647,6 @@ function ResultsNew(props) {
   var getPostsData = function getPostsData() {
     _Axios__WEBPACK_IMPORTED_MODULE_1__["default"].get("".concat(props.siteSlug, "wp-json/ca/v1/all/").concat(props.mainCategoryId)).then(function (res) {
       props.setPosts(res.data);
-      console.log(res.data);
     }).catch(function (err) {
       return console.log(err.message);
     });
@@ -2745,6 +2799,17 @@ ReactDOM.render(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEl
 /***/ (function(module, exports) {
 
 (function() { module.exports = this["wp"]["element"]; }());
+
+/***/ }),
+
+/***/ "react":
+/*!*********************************!*\
+  !*** external {"this":"React"} ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["React"]; }());
 
 /***/ })
 

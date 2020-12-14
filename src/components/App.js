@@ -1,5 +1,6 @@
 import Top from "./Top";
 import Category from "./Category";
+import Description from "./Description";
 import Results from "./ResultsNew";
 
 const { useState, useEffect } = wp.element;
@@ -27,6 +28,10 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [
+    filteredCategoryDescription,
+    setFilteredCategoryDescription,
+  ] = useState("");
 
   return (
     <>
@@ -40,6 +45,13 @@ function App() {
           setCategories={setCategories}
           setCategoriesIds={setCategoriesIds}
           setSelectedCategory={setSelectedCategory}
+        />
+
+        <Description
+          categories={categories}
+          selectedCategory={selectedCategory}
+          filteredCategoryDescription={filteredCategoryDescription}
+          setFilteredCategoryDescription={setFilteredCategoryDescription}
         />
 
         <Results
