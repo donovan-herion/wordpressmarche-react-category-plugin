@@ -35,37 +35,42 @@ function App() {
 
   return (
     <>
-      <div className="bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
-        <Top siteSlug={siteSlug} mainCategoryId={mainCategoryId} />
+      <section
+        id="content"
+        class="pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
+      >
+        <div className="bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
+          <Top siteSlug={siteSlug} mainCategoryId={mainCategoryId} />
 
-        <Category
-          siteSlug={siteSlug}
-          mainCategoryId={mainCategoryId}
-          categories={categories}
-          setCategories={setCategories}
-          setCategoriesIds={setCategoriesIds}
-          setSelectedCategory={setSelectedCategory}
-          filteredCategoryDescription={filteredCategoryDescription}
-        />
+          <Category
+            siteSlug={siteSlug}
+            mainCategoryId={mainCategoryId}
+            categories={categories}
+            setCategories={setCategories}
+            setCategoriesIds={setCategoriesIds}
+            setSelectedCategory={setSelectedCategory}
+            filteredCategoryDescription={filteredCategoryDescription}
+          />
 
-        <Description
-          categories={categories}
-          selectedCategory={selectedCategory}
-          filteredCategoryDescription={filteredCategoryDescription}
-          setFilteredCategoryDescription={setFilteredCategoryDescription}
-        />
+          <Description
+            categories={categories}
+            selectedCategory={selectedCategory}
+            filteredCategoryDescription={filteredCategoryDescription}
+            setFilteredCategoryDescription={setFilteredCategoryDescription}
+          />
 
-        <Results
-          siteSlug={siteSlug}
-          mainCategoryId={mainCategoryId}
-          categoriesIds={categoriesIds}
-          posts={posts}
-          setPosts={setPosts}
-          selectedCategory={selectedCategory}
-          filteredPosts={filteredPosts}
-          setFilteredPosts={setFilteredPosts}
-        />
-      </div>
+          <Results
+            siteSlug={siteSlug}
+            mainCategoryId={mainCategoryId}
+            categoriesIds={categoriesIds}
+            posts={posts}
+            setPosts={setPosts}
+            selectedCategory={selectedCategory}
+            filteredPosts={filteredPosts}
+            setFilteredPosts={setFilteredPosts}
+          />
+        </div>
+      </section>
     </>
   );
 }

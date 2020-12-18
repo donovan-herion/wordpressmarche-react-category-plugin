@@ -29,12 +29,7 @@ function Category(props) {
     if (props.mainCategoryId !== 0) {
       getCategories();
     }
-  }, [
-    props.siteSlug,
-    props.mainCategoryId,
-    props.subTitle,
-    props.filteredCategoryDescription,
-  ]);
+  }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
 
   const checkMainCategoryContent = (temp_res) => {
     axios
@@ -74,7 +69,11 @@ function Category(props) {
   }, [props.categories]);
 
   function changeSelectedCategory(temp_e) {
-    const eventDataAttribute = temp_e.target.getAttribute("data-category-id");
+    let eventDataAttribute = temp_e.target.getAttribute("data-category-id");
+    if (eventDataAttribute == null) {
+      eventDataAttribute = temp_e.target.value;
+    }
+    console.log(eventDataAttribute);
     const matchingCategoryObject = props.categories.find(
       (obj) => obj.id == eventDataAttribute
     );
@@ -83,6 +82,7 @@ function Category(props) {
 
   function changeActive(temp_e) {
     const eventDataAttribute = temp_e.target.getAttribute("data-category-id");
+    console.log(eventDataAttribute);
     props.setCategories((previousCategories) =>
       previousCategories.map((object) => {
         if (object.id == eventDataAttribute) {
@@ -92,6 +92,7 @@ function Category(props) {
         }
       })
     );
+    console.log(props.categories);
   }
 
   if (props.categories.length == 1) {
@@ -99,9 +100,33 @@ function Category(props) {
   } else {
     return (
       <>
-        <div className="overflow-hidden w-100 pt-48px col-6 px-0">
-          <ul className="object-tags">
+        <div class="d-lg-none pr-12px border border-dark-primary mt-48px">
+          <select
+            name="categories"
+            id="cat-select"
+            class="fs-short-3 ff-semibold"
+            onChange={(e) => {
+              changeSelectedCategory(e);
+            }}
+          >
             {props.categories.map((object, index) => {
+              return (
+                <option
+                  value={object.id}
+                  data-category-id={object.id}
+                  defaultValue={object.active}
+                >
+                  {object.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="d-none d-lg-block overflow-hidden w-100 pt-48px col-6 px-0">
+          <ul className="object-tags">
+            {console.log(props.categories)}
+            {props.categories.map((object, index) => {
+              // console.log(object.active);
               return (
                 <li
                   key={index}

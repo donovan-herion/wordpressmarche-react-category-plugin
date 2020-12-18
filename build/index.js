@@ -2398,7 +2398,10 @@ function App() {
       filteredCategoryDescription = _useState16[0],
       setFilteredCategoryDescription = _useState16[1];
 
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("section", {
+    id: "content",
+    class: "pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Top__WEBPACK_IMPORTED_MODULE_2__["default"], {
     siteSlug: siteSlug,
@@ -2425,7 +2428,7 @@ function App() {
     selectedCategory: selectedCategory,
     filteredPosts: filteredPosts,
     setFilteredPosts: setFilteredPosts
-  })));
+  }))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -2492,7 +2495,7 @@ function Category(props) {
     if (props.mainCategoryId !== 0) {
       getCategories();
     }
-  }, [props.siteSlug, props.mainCategoryId, props.subTitle, props.filteredCategoryDescription]);
+  }, [props.siteSlug, props.mainCategoryId, props.subTitle]);
 
   var checkMainCategoryContent = function checkMainCategoryContent(temp_res) {
     _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json/wp/v2/categories/").concat(props.mainCategoryId)).then(function (res) {
@@ -2537,6 +2540,12 @@ function Category(props) {
 
   function changeSelectedCategory(temp_e) {
     var eventDataAttribute = temp_e.target.getAttribute("data-category-id");
+
+    if (eventDataAttribute == null) {
+      eventDataAttribute = temp_e.target.value;
+    }
+
+    console.log(eventDataAttribute);
     var matchingCategoryObject = props.categories.find(function (obj) {
       return obj.id == eventDataAttribute;
     });
@@ -2545,6 +2554,7 @@ function Category(props) {
 
   function changeActive(temp_e) {
     var eventDataAttribute = temp_e.target.getAttribute("data-category-id");
+    console.log(eventDataAttribute);
     props.setCategories(function (previousCategories) {
       return previousCategories.map(function (object) {
         if (object.id == eventDataAttribute) {
@@ -2558,16 +2568,33 @@ function Category(props) {
         }
       });
     });
+    console.log(props.categories);
   }
 
   if (props.categories.length == 1) {
     return null;
   } else {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "overflow-hidden w-100 pt-48px col-6 px-0"
+      class: "d-lg-none pr-12px border border-dark-primary mt-48px"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("select", {
+      name: "categories",
+      id: "cat-select",
+      class: "fs-short-3 ff-semibold",
+      onChange: function onChange(e) {
+        changeSelectedCategory(e);
+      }
+    }, props.categories.map(function (object, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("option", {
+        value: object.id,
+        "data-category-id": object.id,
+        defaultValue: object.active
+      }, object.name);
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "d-none d-lg-block overflow-hidden w-100 pt-48px col-6 px-0"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
       className: "object-tags"
-    }, props.categories.map(function (object, index) {
+    }, console.log(props.categories), props.categories.map(function (object, index) {
+      // console.log(object.active);
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("li", {
         key: index,
         className: "".concat(object.active ? "active" : "", " pr-24px")
