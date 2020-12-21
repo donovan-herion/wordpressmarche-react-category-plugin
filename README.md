@@ -10,6 +10,12 @@ Clone this repo into the mu-plugins folder of your wordpress configuration.
 git clone git@github.com:donovan-herion/wordpressmarche-react-category-plugin.git
 ```
 
+Install all required packages by running
+
+```bash
+npm install
+```
+
 call the plugin in the load.php file so that it runs on the wordpress site by default.
 
 ```bash
