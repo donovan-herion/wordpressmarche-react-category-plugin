@@ -126,7 +126,6 @@ function Category(props) {
           <ul className="object-tags">
             {console.log(props.categories)}
             {props.categories.map((object, index) => {
-              // console.log(object.active);
               return (
                 <li
                   key={index}
