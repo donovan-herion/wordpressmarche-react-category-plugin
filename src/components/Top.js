@@ -3,8 +3,8 @@ import axios from "./Axios";
 const { useState, useEffect } = wp.element;
 
 function Top(props) {
-  const [title, setTitle] = useState(""); //used in Top component but also in Category
-  const [subTitle, setSubTitle] = useState(""); //used in Top component but also in Category
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
 
   const getTitle = () => {
     axios

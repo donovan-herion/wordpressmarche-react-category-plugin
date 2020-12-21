@@ -2335,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Top__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Top */ "./src/components/Top.js");
 /* harmony import */ var _Category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Category */ "./src/components/Category.js");
 /* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Description */ "./src/components/Description.js");
-/* harmony import */ var _ResultsNew__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ResultsNew */ "./src/components/ResultsNew.js");
+/* harmony import */ var _Results__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Results */ "./src/components/Results.js");
 
 
 
@@ -2400,7 +2400,7 @@ function App() {
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("section", {
     id: "content",
-    class: "pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
+    className: "pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Top__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -2412,14 +2412,13 @@ function App() {
     categories: categories,
     setCategories: setCategories,
     setCategoriesIds: setCategoriesIds,
-    setSelectedCategory: setSelectedCategory,
-    filteredCategoryDescription: filteredCategoryDescription
+    setSelectedCategory: setSelectedCategory
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Description__WEBPACK_IMPORTED_MODULE_4__["default"], {
     categories: categories,
     selectedCategory: selectedCategory,
     filteredCategoryDescription: filteredCategoryDescription,
     setFilteredCategoryDescription: setFilteredCategoryDescription
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_ResultsNew__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Results__WEBPACK_IMPORTED_MODULE_5__["default"], {
     siteSlug: siteSlug,
     mainCategoryId: mainCategoryId,
     categoriesIds: categoriesIds,
@@ -2575,16 +2574,17 @@ function Category(props) {
     return null;
   } else {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      class: "d-lg-none pr-12px border border-dark-primary mt-48px"
+      className: "d-lg-none pr-12px border border-dark-primary mt-48px"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("select", {
       name: "categories",
       id: "cat-select",
-      class: "fs-short-3 ff-semibold",
+      className: "fs-short-3 ff-semibold",
       onChange: function onChange(e) {
         changeSelectedCategory(e);
       }
     }, props.categories.map(function (object, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("option", {
+        key: object.id + 1000,
         value: object.id,
         "data-category-id": object.id,
         defaultValue: object.active
@@ -2594,7 +2594,6 @@ function Category(props) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("ul", {
       className: "object-tags"
     }, console.log(props.categories), props.categories.map(function (object, index) {
-      // console.log(object.active);
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("li", {
         key: index,
         className: "".concat(object.active ? "active" : "", " pr-24px")
@@ -2658,10 +2657,10 @@ function Description(props) {
 
 /***/ }),
 
-/***/ "./src/components/ResultsNew.js":
-/*!**************************************!*\
-  !*** ./src/components/ResultsNew.js ***!
-  \**************************************/
+/***/ "./src/components/Results.js":
+/*!***********************************!*\
+  !*** ./src/components/Results.js ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2755,14 +2754,12 @@ function Top(props) {
   var _useState = useState(""),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
       title = _useState2[0],
-      setTitle = _useState2[1]; //used in Top component but also in Category
-
+      setTitle = _useState2[1];
 
   var _useState3 = useState(""),
       _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState3, 2),
       subTitle = _useState4[0],
-      setSubTitle = _useState4[1]; //used in Top component but also in Category
-
+      setSubTitle = _useState4[1];
 
   var getTitle = function getTitle() {
     _Axios__WEBPACK_IMPORTED_MODULE_2__["default"].get("".concat(props.siteSlug, "wp-json")).then(function (res) {

@@ -100,11 +100,11 @@ function Category(props) {
   } else {
     return (
       <>
-        <div class="d-lg-none pr-12px border border-dark-primary mt-48px">
+        <div className="d-lg-none pr-12px border border-dark-primary mt-48px">
           <select
             name="categories"
             id="cat-select"
-            class="fs-short-3 ff-semibold"
+            className="fs-short-3 ff-semibold"
             onChange={(e) => {
               changeSelectedCategory(e);
             }}
@@ -112,6 +112,7 @@ function Category(props) {
             {props.categories.map((object, index) => {
               return (
                 <option
+                  key={object.id + 1000}
                   value={object.id}
                   data-category-id={object.id}
                   defaultValue={object.active}

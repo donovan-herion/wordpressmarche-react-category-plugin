@@ -1,7 +1,7 @@
 import Top from "./Top";
 import Category from "./Category";
 import Description from "./Description";
-import Results from "./ResultsNew";
+import Results from "./Results";
 
 const { useState, useEffect } = wp.element;
 
@@ -37,7 +37,7 @@ function App() {
     <>
       <section
         id="content"
-        class="pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
+        className="pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
       >
         <div className="bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
           <Top siteSlug={siteSlug} mainCategoryId={mainCategoryId} />
@@ -49,7 +49,6 @@ function App() {
             setCategories={setCategories}
             setCategoriesIds={setCategoriesIds}
             setSelectedCategory={setSelectedCategory}
-            filteredCategoryDescription={filteredCategoryDescription}
           />
 
           <Description
