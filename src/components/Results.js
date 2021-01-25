@@ -34,6 +34,8 @@ function ResultsNew(props) {
     }
   }, [props.posts, props.selectedCategory]);
 
+  console.log(props.filteredPosts);
+
   return (
     <div className="pt-24px">
       <ul className="d-flex mx-n12px flex-wrap">
@@ -47,15 +49,15 @@ function ResultsNew(props) {
                 <h3
                   className="fs-short-2 ff-semibold text-dark-primary text-hover-primary transition-all ellipsis"
                   dangerouslySetInnerHTML={{
-                    __html: `${object.react_category_filter.join(" | ")} ${
-                      object.post_title
-                    }`,
+                    __html: `${object.post_title}`,
                   }}
                 />
                 <span
                   className="d-block pt-8px fs-short-3 ellipsis text-dark-primary"
                   dangerouslySetInnerHTML={{
-                    __html: `excerpt here`,
+                    __html: `${
+                      object.post_excerpt ? object.post_excerpt : object.excerpt
+                    }`,
                   }}
                 />
               </a>

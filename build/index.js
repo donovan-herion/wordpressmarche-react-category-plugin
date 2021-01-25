@@ -2402,7 +2402,7 @@ function App() {
     id: "content",
     className: "pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column"
+    className: "bg-white py-24px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_Top__WEBPACK_IMPORTED_MODULE_2__["default"], {
     siteSlug: siteSlug,
     mainCategoryId: mainCategoryId
@@ -2604,7 +2604,7 @@ function Category(props) {
           changeActive(e);
         },
         href: "#"
-      }, object.name, " | ", object.id));
+      }, object.name));
     }))));
   }
 }
@@ -2700,6 +2700,7 @@ function ResultsNew(props) {
       props.setFilteredPosts(filteredPosts);
     }
   }, [props.posts, props.selectedCategory]);
+  console.log(props.filteredPosts);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "pt-24px"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
@@ -2714,12 +2715,12 @@ function ResultsNew(props) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", {
       className: "fs-short-2 ff-semibold text-dark-primary text-hover-primary transition-all ellipsis",
       dangerouslySetInnerHTML: {
-        __html: "".concat(object.react_category_filter.join(" | "), " ").concat(object.post_title)
+        __html: "".concat(object.post_title)
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
       className: "d-block pt-8px fs-short-3 ellipsis text-dark-primary",
       dangerouslySetInnerHTML: {
-        __html: "excerpt here"
+        __html: "".concat(object.post_excerpt ? object.post_excerpt : object.excerpt)
       }
     })));
   })));
@@ -2789,7 +2790,12 @@ function Top(props) {
       getSubTitle();
     }
   }, [props.siteSlug, props.mainCategoryId]);
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+    href: "https://new.marche.be/",
+    className: "button lvl3 align-self-ls-md-start align-self-md-start position-relative right-0 right-hover-12px fs-short-2"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("i", {
+    className: "fas fa-angle-left pr-8px d-ls-md-inline pr-md-12px fs-short-2 d-md-inline"
+  }), "Retour \xE0 l'accueil"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
     className: "text-ls-md-left pt-ls-md-8px text-md-left pt-md-8px"
   }, title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
     className: "color-cat-cit ff-semibold pt-12px d-block fs-short-2"

@@ -39,7 +39,7 @@ function App() {
         id="content"
         className="pb-36px pl-ls-42px overflow-ls-hidden overflow-md-hidden pl-ls-lg-0 pt-xl-66px pb-lg-66px mw-1440px mx-xl-auto w-100"
       >
-        <div className="bg-white py-48px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
+        <div className="bg-white py-24px px-24px position-relative d-md-flex px-xl-48px mx-xl-n30px justify-content-md-center flex-column">
           <Top siteSlug={siteSlug} mainCategoryId={mainCategoryId} />
 
           <Category
