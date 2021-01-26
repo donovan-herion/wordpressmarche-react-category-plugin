@@ -43,7 +43,7 @@ function ResultsNew(props) {
           return (
             <li key={index} className="pb-12px px-12px col-12 col-md-6">
               <a
-                href={object.link}
+                href={object.link ? object.link : object.guid}
                 className="border border-default p-24px shadow-sm d-block"
               >
                 <h3
@@ -56,7 +56,11 @@ function ResultsNew(props) {
                   className="d-block pt-8px fs-short-3 ellipsis text-dark-primary"
                   dangerouslySetInnerHTML={{
                     __html: `${
-                      object.post_excerpt ? object.post_excerpt : object.excerpt
+                      object.post_excerpt
+                        ? object.post_excerpt
+                        : object.excerpt
+                        ? object.excerpt
+                        : "description non disponible"
                     }`,
                   }}
                 />

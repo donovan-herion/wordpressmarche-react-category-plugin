@@ -2710,7 +2710,7 @@ function ResultsNew(props) {
       key: index,
       className: "pb-12px px-12px col-12 col-md-6"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-      href: object.link,
+      href: object.link ? object.link : object.guid,
       className: "border border-default p-24px shadow-sm d-block"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", {
       className: "fs-short-2 ff-semibold text-dark-primary text-hover-primary transition-all ellipsis",
@@ -2720,7 +2720,7 @@ function ResultsNew(props) {
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
       className: "d-block pt-8px fs-short-3 ellipsis text-dark-primary",
       dangerouslySetInnerHTML: {
-        __html: "".concat(object.post_excerpt ? object.post_excerpt : object.excerpt)
+        __html: "".concat(object.post_excerpt ? object.post_excerpt : object.excerpt ? object.excerpt : "description non disponible")
       }
     })));
   })));
